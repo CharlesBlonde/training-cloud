@@ -1,0 +1,15 @@
+#cloud-config
+
+timezone: Europe/Paris
+
+packages:
+- yum-utils
+- curl
+- java-1.7.0-openjdk
+- tomcat7
+
+runcmd:
+ - echo "jdbc.url=jdbc:mysql://training-cloud-xxx.cccb4ickfoh9.eu-west-1.rds.amazonaws.com:3306" >> /usr/share/tomcat7/conf/catalina.properties
+ - curl "https://repository-cblonde.forge.cloudbees.com/snapshot/org/springframework/samples/spring-petclinic/1.0.0-SNAPSHOT/spring-petclinic-1.0.0-20140406.144038-1.war" -o /usr/share/tomcat7/webapps/spring-petclinic.war
+ - [chkconfig, tomcat7, on]
+ - [service, tomcat7, restart ]
